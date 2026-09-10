@@ -7494,7 +7494,8 @@ function matrixDisplayBiomarkers(d){
 
 // V68 — Cat.1 表與「治療情境與藥物檢索」共用同一組 11 欄內容生成。
 // 欄位名稱與資料來源完全依 V66 搜尋表：藥物情境、說明、治療階段、Evidence、Preference、分型、期別、線位、Biomarker、台灣藥證取得情形、健保給付情形。
-function matrixSharedRowCellsHtml(d){
+function matrixSharedRowCellsHtml(d,options){
+  options=options||{};
   var biomarkers=matrixDisplayBiomarkers(d);
   var subtypeDisplay=matrixSubtypeDisplay(d);
   var markerChips=biomarkers.length
@@ -7510,6 +7511,10 @@ function matrixSharedRowCellsHtml(d){
   var tfdaStatus=publicMetaText(d.tfdaStatus||'公開資料未查得');
   var drugName=d.n.split("—")[0].trim();
   var preferredText=matrixPreferredLabel(d);
+  // V73: Page 2「治療情境與藥物檢索」只顯示 Preferred；其他 Preference 僅在 Page 2 留白。
+  // 底層 d.pref / scenarioMeta preference 不變，其他頁面沿用完整 Preference 顯示。
+  var page2PreferredOnly=options.preferenceDisplay==='preferredOnly';
+  if(page2PreferredOnly&&nccnPreference(d)!=='Preferred')preferredText='';
 
   var regimenText=(meta.regimen||'').trim();
   var showRegimen=regimenText && normalizeSearch(regimenText)!==normalizeSearch(drugName);
@@ -7526,7 +7531,7 @@ function matrixSharedRowCellsHtml(d){
     '<td class="matrix-stage-cell"><span class="therapy-stage-badge">'+scenarioTreatmentStageDisplay(d)+'</span></td>'+
     '<td class="matrix-nccn-cell"><span class="badge '+catClass(d.cat)+'">'+d.cat+'</span></td>'+
     '<td class="matrix-nccn-cell">'+
-      (preferredText?'<span class="nccn-preference">'+preferredText+'</span>':'<span class="text-slate-400">—</span>')+
+      (preferredText?'<span class="nccn-preference">'+preferredText+'</span>':(page2PreferredOnly?'':'<span class="text-slate-400">—</span>'))+
     '</td>'+
     '<td class="matrix-subtype-cell"><span class="badge '+subClass(subtypeDisplay)+'">'+subtypeDisplay+'</span></td>'+
     '<td class="matrix-stage-cell"><span class="therapy-stage-badge">'+d.stage+'</span></td>'+
@@ -7553,7 +7558,7 @@ function renderTable(){
     }
 
     var tr=document.createElement("tr");
-    tr.innerHTML=matrixSharedRowCellsHtml(d);
+    tr.innerHTML=matrixSharedRowCellsHtml(d,{preferenceDisplay:'preferredOnly'});
     tbody.appendChild(tr);
   });
 
