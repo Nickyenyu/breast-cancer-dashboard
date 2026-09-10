@@ -7092,7 +7092,7 @@ function guidelineScenarioDetailRowHtml(d){
 // V69: 72 情境主列與 V68「治療情境與藥物檢索」／Cat.1 共用完全相同的 11 欄內容；僅保留整列點擊展開詳細資料的互動。
 function guidelineScenarioTableRowHtml(d){
   return '<tr class="guideline-data-row matrix-compatible-row" tabindex="0" role="button" aria-expanded="false" data-sid="'+escapeIngredientHtml(d.sid||'')+'" onclick="toggleGuidelineScenarioRow(this)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleGuidelineScenarioRow(this);}">'+
-    matrixSharedRowCellsHtml(d)+
+    matrixSharedRowCellsHtml(d,{preferenceDisplay:'preferredOnly'})+
   '</tr>'+guidelineScenarioDetailRowHtml(d);
 }
 
