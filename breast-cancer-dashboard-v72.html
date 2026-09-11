@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <!-- V61: 依 NCCN v2.2026 深度逐筆核對，精準化 4 筆必修、1 筆 NCCN 來源差異與 18 筆 Eligibility／Line／Prior treatment；維持 72 情境與 55 成分母體。 -->
+<!-- V74: Abemaciclib 情境／成分層級分流修正：Fulvestrant + Abemaciclib 明確歸類轉移性且情境尚未給付；Abemaciclib 成分維持早期至少部分納入、轉移性尚未納入。 -->
 <!-- V74: 僅修正 Page 2「治療情境與藥物檢索」資訊分流：說明→NCCN 頁碼；健保限制/條件移至「台灣健保給付規定」。其他頁面與底層資料不變。 -->
 <!-- V30: 精簡疾病與預後概況頁面說明；移除指定 SEER/RFS 提示與 RWD 折線圖顯示，不更動底層資料。 -->
 <head>
@@ -3947,7 +3948,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       </summary>
       <div class="p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 border-t border-slate-200"><div class="border border-slate-200 rounded-lg p-3 bg-white">
           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-            <div><div class="font-bold text-slate-900">Abemaciclib</div><div class="text-[10px] text-slate-400 mt-1">NCCN 主要來源：p67–68（輔助）; p88–89（轉移）</div></div>
+            <div><div class="font-bold text-slate-900">Abemaciclib</div><div class="text-[10px] text-slate-400 mt-1">NCCN 主要來源：p67–68（輔助）; p88–89（轉移）</div><div class="text-[10px] text-slate-500 mt-1">健保分期判讀：早期至少部分納入；轉移性尚未納入</div></div>
             <span class="inline-flex self-start px-2 py-1 rounded-md border text-[9.5px] font-bold bg-emerald-50 text-emerald-700 border-emerald-200">至少有一項健保涵蓋</span>
           </div>
         </div><div class="border border-slate-200 rounded-lg p-3 bg-white">
@@ -4954,14 +4955,19 @@ var D=[
     "ctx":"HR+/HER2−轉移性乳癌；於輔助內分泌治療中進展或完成後12個月內復發等NCCN條件；Fulvestrant + Abemaciclib。",
     "nccnP":"p88",
     "gap":"完全未給付",
-    "nhiCond":"現行9.72僅列ribociclib/palbociclib；9.107 Abemaciclib僅收載HR+/HER2−高風險早期乳癌輔助療法，未見轉移性Abemaciclib給付。",
-    "nhiP":"9.72 / 9.107 Abemaciclib對照",
-    "gapNote":"現行9.72僅列ribociclib/palbociclib；9.107 Abemaciclib僅收載HR+/HER2−高風險早期乳癌輔助療法，未見轉移性Abemaciclib給付。",
+    "nhiCond":"Abemaciclib成分本身已有早期乳癌健保給付（9.107），但該給付限HR+/HER2−、淋巴結陽性且高復發風險之早期乳癌輔助治療；Fulvestrant於晚期／轉移性乳癌與CDK4/6抑制劑併用之現行規定（9.130）未涵蓋Abemaciclib。因此本列Fulvestrant + Abemaciclib晚期／轉移性治療組合尚未給付。",
+    "nhiP":"9.107 Abemaciclib / 9.130 Fulvestrant",
+    "gapNote":"成分層級：Abemaciclib早期乳癌已有健保給付；情境層級：Fulvestrant + Abemaciclib晚期／轉移性組合目前尚未給付。",
     "fda":2017,
     "nhiDate":"109/10/01",
     "sid":"SCN-016-B",
     "pref":"Preferred",
-    "nhiUrl":"https://www.nhi.gov.tw/ch/dl-55685-99c675b771ab4b2789c891bc8db447ce-1.pdf"
+    "nhiUrl":"https://www.nhi.gov.tw/ch/dl-55685-99c675b771ab4b2789c891bc8db447ce-1.pdf",
+    "biomarker":"HR-positive / HER2-negative",
+    "setting":"Recurrent unresectable / Stage IV (M1)",
+    "line":"第一線（輔助內分泌治療中進展／完成後12個月內復發）或第二／後續線（先前未使用CDK4/6 inhibitor）",
+    "eligibility":"屬晚期／復發不可切除／Stage IV HR+/HER2−情境；既往輔助內分泌治療史僅是分線與適用條件，不代表本列為早期輔助治療。",
+    "regimen":"Fulvestrant + Abemaciclib"
   },
   {
     "n":"Abemaciclib + 內分泌治療 — 高風險早期 HR+/HER2−",
@@ -6905,6 +6911,8 @@ var NCCN_SCENARIO_META={
   "Ribociclib 1L":{preference:"Preferred regimen",line:"第一線"},
   "Ribociclib 2L":{preference:"Preferred regimen",line:"第二線／後續線"},
   "Abemaciclib Met":{preference:"Preferred regimen",line:"依內分泌治療史分線"},
+  "Abemaciclib Met AI":{preference:"Preferred regimen",line:"第一線",source:"p88"},
+  "Abemaciclib Met Fulvestrant":{preference:"Preferred regimen",line:"第一線／第二或後續線",source:"p88",regimen:"Fulvestrant + Abemaciclib"},
   "Inavolisib 1L":{preference:"Preferred regimen",line:"第一線",regimen:"Inavolisib + Palbociclib + Fulvestrant",source:"p88、p95"},
   "Alpelisib Met":{preference:"Preferred regimen",line:"後續線",regimen:"Alpelisib + Fulvestrant",source:"p95"},
   "Capivasertib Met":{preference:"Preferred regimen",line:"後續線",regimen:"Capivasertib + Fulvestrant",source:"p95"},
@@ -6934,24 +6942,37 @@ function nccnPreference(d){
   if(d&&Object.prototype.hasOwnProperty.call(d,"pref"))return d.pref||"";
   return scenarioMeta(d).preference||"";
 }
+// V74: 治療階段／線位先以資料列 stage 為最高優先。
+// 轉移性情境常會描述「輔助內分泌治療中進展／完成後復發」等既往治療史，
+// 不得因文字中出現「輔助」而誤判為早期／輔助治療。
 function therapyLine(d){
   var explicit=scenarioMeta(d).line;if(explicit)return explicit;
   var text=[d.n,d.en,d.ctx].join(" ");
+  var stage=String((d||{}).stage||"");
+  if(stage.indexOf("轉移")>=0){
+    if(/1L|一線|第一線/i.test(text))return "第一線";
+    if(/2L|二線|第二線/i.test(text))return "第二線";
+    if(/後線|後續|3L/i.test(text))return "後續線";
+    return "依臨床情境";
+  }
+  if(stage.indexOf("早期")>=0)return "早期治療";
   if(/早期|輔助|術後|術前/.test(text))return "早期治療";
   if(/1L|一線|第一線/i.test(text))return "第一線";
   if(/2L|二線|第二線/i.test(text))return "第二線";
   if(/後線|後續|3L/i.test(text))return "後續線";
-  return d.stage.indexOf("轉移")>=0?"依臨床情境":"未註明";
+  return "未註明";
 }
 
 function treatmentPhase(d){
+  var stage=String((d||{}).stage||"");
+  if(stage.indexOf("轉移")>=0)return "轉移性治療";
   var text=[d.n,d.en,d.ctx,d.nhiCond].join(" ");
   var hasNeo=/新輔助|術前|前導/.test(text);
   var hasAdj=/術後|輔助|強化輔助/.test(text);
   if(hasNeo&&hasAdj)return "術前輔助治療／輔助治療";
   if(hasNeo)return "術前輔助治療";
-  if(hasAdj)return "輔助治療";
-  if(String(d.stage||"").indexOf("轉移")>=0||/轉移性|晚期轉移|晚期/.test(text))return "轉移性治療";
+  if(stage.indexOf("早期")>=0||hasAdj)return "輔助治療";
+  if(/轉移性|晚期轉移|晚期/.test(text))return "轉移性治療";
   return "—";
 }
 
