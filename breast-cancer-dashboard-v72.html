@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <!-- V61: 依 NCCN v2.2026 深度逐筆核對，精準化 4 筆必修、1 筆 NCCN 來源差異與 18 筆 Eligibility／Line／Prior treatment；維持 72 情境與 55 成分母體。 -->
+<!-- V74: 僅修正 Page 2「治療情境與藥物檢索」資訊分流：說明→NCCN 頁碼；健保限制/條件移至「台灣健保給付規定」。其他頁面與底層資料不變。 -->
 <!-- V30: 精簡疾病與預後概況頁面說明；移除指定 SEER/RFS 提示與 RWD 折線圖顯示，不更動底層資料。 -->
 <head>
 <meta charset="UTF-8">
@@ -1440,8 +1441,13 @@ footer.site-footer .footer-title{color:#334155!important}
 #clinicalScenarioListSection .guideline-scenario-preference{min-width:180px;}
 #clinicalScenarioListSection .guideline-scenario-evidence{min-width:112px;}
 #clinicalScenarioListSection .guideline-scenario-reimbursement{min-width:110px;}
-[data-tab-page="matrix"] #mainTbl .matrix-description{min-width:220px;max-width:300px;}
+[data-tab-page="matrix"] #mainTbl .matrix-description{min-width:135px;max-width:175px;}
 [data-tab-page="matrix"] #mainTbl .matrix-description-main{color:#475569;}
+/* V74 — superseded by V75 全站 NCCN／健保分流。 */
+[data-tab-page="matrix"] #mainTbl .matrix-nccn-page{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-weight:750;color:#1e3a8a;}
+[data-tab-page="matrix"] #mainTbl .matrix-nhi-rule-cell{min-width:300px;max-width:420px;}
+[data-tab-page="matrix"] #mainTbl .matrix-nhi-rule-text{margin-top:7px;font-size:11px;line-height:1.6;color:#475569;}
+[data-tab-page="matrix"] #mainTbl .matrix-nhi-rule-source{margin-top:6px;font-size:9.5px;line-height:1.45;color:#64748b;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
 @media(max-width:700px){
   #categoryOneGapSection .clinical-data-table,
   #systemicGapSection .clinical-data-table{min-width:1080px;}
@@ -3270,6 +3276,66 @@ footer.site-footer .footer-title{color:#334155!important}
 }
 </style>
 
+
+<style>
+/* V75 — NCCN × 台灣健保全站資訊分流：Page 2、Page 3 Cat.1、72 情境統一 12 欄。 */
+#mainTbl,
+#categoryOneGapSection .matrix-compatible-table,
+#clinicalScenarioListSection .matrix-compatible-table{
+  min-width:2140px!important;
+  width:100%!important;
+  table-layout:auto!important;
+}
+#mainTbl th,#mainTbl td,
+#categoryOneGapSection .matrix-compatible-table th,#categoryOneGapSection .matrix-compatible-table td,
+#clinicalScenarioListSection .matrix-compatible-table th,#clinicalScenarioListSection .matrix-compatible-table td{vertical-align:middle;}
+#mainTbl th:nth-child(1),#mainTbl td:nth-child(1),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(1),#categoryOneGapSection .matrix-compatible-table td:nth-child(1),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(1),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(1){min-width:190px;width:10%;}
+#mainTbl th:nth-child(2),#mainTbl td:nth-child(2),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(2),#categoryOneGapSection .matrix-compatible-table td:nth-child(2),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(2),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(2){min-width:112px;width:6%;}
+#mainTbl th:nth-child(3),#mainTbl td:nth-child(3),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(3),#categoryOneGapSection .matrix-compatible-table td:nth-child(3),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(3),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(3){min-width:128px;width:7%;}
+#mainTbl th:nth-child(4),#mainTbl td:nth-child(4),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(4),#categoryOneGapSection .matrix-compatible-table td:nth-child(4),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(4),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(4){min-width:160px;width:8%;}
+#mainTbl th:nth-child(5),#mainTbl td:nth-child(5),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(5),#categoryOneGapSection .matrix-compatible-table td:nth-child(5),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(5),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(5){min-width:128px;width:7%;}
+#mainTbl th:nth-child(6),#mainTbl td:nth-child(6),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(6),#categoryOneGapSection .matrix-compatible-table td:nth-child(6),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(6),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(6){min-width:112px;width:6%;}
+#mainTbl th:nth-child(7),#mainTbl td:nth-child(7),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(7),#categoryOneGapSection .matrix-compatible-table td:nth-child(7),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(7),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(7){min-width:112px;width:6%;}
+#mainTbl th:nth-child(8),#mainTbl td:nth-child(8),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(8),#categoryOneGapSection .matrix-compatible-table td:nth-child(8),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(8),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(8){min-width:140px;width:7%;}
+#mainTbl th:nth-child(9),#mainTbl td:nth-child(9),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(9),#categoryOneGapSection .matrix-compatible-table td:nth-child(9),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(9),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(9){min-width:130px;width:7%;}
+#mainTbl th:nth-child(10),#mainTbl td:nth-child(10),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(10),#categoryOneGapSection .matrix-compatible-table td:nth-child(10),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(10),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(10){min-width:160px;width:8%;}
+#mainTbl th:nth-child(11),#mainTbl td:nth-child(11),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(11),#categoryOneGapSection .matrix-compatible-table td:nth-child(11),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(11),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(11){min-width:125px;width:7%;}
+#mainTbl th:nth-child(12),#mainTbl td:nth-child(12),
+#categoryOneGapSection .matrix-compatible-table th:nth-child(12),#categoryOneGapSection .matrix-compatible-table td:nth-child(12),
+#clinicalScenarioListSection .matrix-compatible-table th:nth-child(12),#clinicalScenarioListSection .matrix-compatible-table td:nth-child(12){min-width:320px;width:21%;white-space:normal!important;word-break:normal!important;}
+.matrix-nccn-page-cell{white-space:normal!important;word-break:normal!important;}
+.matrix-nccn-page{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-weight:750;color:#1e3a8a;line-height:1.5;}
+.matrix-reimbursement-cell{text-align:left;}
+.matrix-nhi-rule-cell{white-space:normal!important;word-break:normal!important;vertical-align:top!important;}
+.matrix-nhi-rule-text{font-size:11px;line-height:1.6;color:#475569;}
+.matrix-nhi-rule-source{display:inline-block;margin-top:6px;font-size:9.5px;line-height:1.45;color:#64748b;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
+#clinicalScenarioListSection .guideline-detail-row>td{white-space:normal!important;}
+@media(max-width:700px){
+  #mainTbl,#categoryOneGapSection .matrix-compatible-table,#clinicalScenarioListSection .matrix-compatible-table{min-width:2140px!important;}
+}
+</style>
 </head>
 <body class="min-h-screen">
 <script>
@@ -4479,7 +4545,6 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       <thead>
         <tr id="mainHeaderRow">
           <th class="w-48">藥物情境</th>
-          <th class="w-64">說明</th>
           <th class="w-28">治療階段</th>
           <th class="w-32">NCCN Evidence</th>
           <th class="w-40">NCCN Preference</th>
@@ -4487,8 +4552,10 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
           <th class="w-28">期別</th>
           <th class="w-28">線位</th>
           <th class="w-32">Biomarker</th>
+          <th class="w-32">NCCN 頁碼</th>
           <th class="w-40">台灣藥證取得情形</th>
           <th class="w-36">健保給付情形</th>
+          <th class="w-72">台灣健保給付規定</th>
         </tr>
       </thead>
       <tbody id="tBody"></tbody>
@@ -7061,7 +7128,7 @@ function scenarioTreatmentStageDisplay(d){
   return '—';
 }
 
-// V68: Cat.1 表不另建欄位邏輯；直接使用 V66「治療情境與藥物檢索」同一組 11 欄內容。
+// V68: Cat.1 表不另建欄位邏輯；直接使用 V66「治療情境與藥物檢索」同一組 12 欄內容。
 function cat1CompactRowHtml(d){
   return '<tr>'+matrixSharedRowCellsHtml(d)+'</tr>';
 }
@@ -7075,21 +7142,27 @@ function guidelineScenarioDetailRowHtml(d){
   var regimen=d.regimen||scenarioMeta(d).regimen||clinicalDisplayName(d)||'—';
   var source=publicMetaText(d.nccnP);
   var gapDisplay=d.gap==='完全未給付'?'尚未給付':gapLabel(d.gap);
+  var nhiCondition=matrixSupplementalDescription(d);
+  var nhiClause=publicMetaText(d.nhiP);
+  var nhiRuleParts=[];
+  if(nhiCondition!=='—')nhiRuleParts.push(escapeIngredientHtml(nhiCondition));
+  if(nhiClause!=='—')nhiRuleParts.push('<span class="matrix-nhi-rule-source">給付條款：'+escapeIngredientHtml(nhiClause)+'</span>');
+  var nhiRuleHtml=nhiRuleParts.length?nhiRuleParts.join('<br>'):'—';
   var note=d.nccnNote?'<div class="guideline-detail-note"><strong>⚠ NCCN 來源／情境註記：</strong> '+escapeIngredientHtml(d.nccnNote)+'</div>':'';
-  return '<tr class="guideline-detail-row" hidden aria-hidden="true"><td colspan="11"><div class="guideline-detail-shell">'+
+  return '<tr class="guideline-detail-row" hidden aria-hidden="true"><td colspan="12"><div class="guideline-detail-shell">'+
     '<table class="guideline-detail-table" aria-label="'+escapeIngredientHtml((clinicalDisplayName(d)||'')+' 詳細 NCCN 條件')+'"><tbody>'+ 
       '<tr><th>乳癌分型</th><td>'+escapeIngredientHtml(matrixSubtypeDisplay(d))+'</td><th>生物標記</th><td>'+escapeIngredientHtml(markers)+'</td></tr>'+ 
       '<tr><th>疾病階段</th><td>'+escapeIngredientHtml(setting)+'</td><th>治療線位</th><td>'+escapeIngredientHtml(line)+'</td></tr>'+ 
       '<tr><th>前治療條件／適用條件</th><td class="guideline-detail-long" colspan="3">'+escapeIngredientHtml(eligibility)+'</td></tr>'+ 
       '<tr><th>治療方案</th><td class="guideline-detail-long" colspan="3">'+escapeIngredientHtml(regimen)+'</td></tr>'+ 
       '<tr><th>NCCN Evidence</th><td>'+escapeIngredientHtml(d.cat||'—')+'</td><th>NCCN Preference</th><td>'+escapeIngredientHtml(pref?nccnPreferenceLabel(pref):'—')+'</td></tr>'+ 
-      '<tr><th>NCCN 頁碼／來源</th><td>'+escapeIngredientHtml(source)+'</td><th>健保給付</th><td>'+escapeIngredientHtml(gapDisplay)+'</td></tr>'+ 
-      '<tr><th>健保條件</th><td class="guideline-detail-long" colspan="3">'+escapeIngredientHtml(publicMetaText(d.nhiCond))+'</td></tr>'+ 
+      '<tr><th>NCCN 頁碼</th><td>'+escapeIngredientHtml(source)+'</td><th>健保給付情形</th><td>'+escapeIngredientHtml(gapDisplay)+'</td></tr>'+ 
+      '<tr><th>台灣健保給付規定</th><td class="guideline-detail-long" colspan="3">'+nhiRuleHtml+'</td></tr>'+ 
     '</tbody></table>'+note+
   '</div></td></tr>';
 }
 
-// V69: 72 情境主列與 V68「治療情境與藥物檢索」／Cat.1 共用完全相同的 11 欄內容；僅保留整列點擊展開詳細資料的互動。
+// V69: 72 情境主列與 V68「治療情境與藥物檢索」／Cat.1 共用完全相同的 12 欄內容；僅保留整列點擊展開詳細資料的互動。
 function guidelineScenarioTableRowHtml(d){
   return '<tr class="guideline-data-row matrix-compatible-row" tabindex="0" role="button" aria-expanded="false" data-sid="'+escapeIngredientHtml(d.sid||'')+'" onclick="toggleGuidelineScenarioRow(this)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleGuidelineScenarioRow(this);}">'+
     matrixSharedRowCellsHtml(d,{preferenceDisplay:'preferredOnly'})+
@@ -7149,7 +7222,7 @@ function buildGapAndTimeline(summaryLayout){
     section.className='gap-section';
     section.setAttribute('data-tab-page','guidelines');
     section.setAttribute('data-treatment-view','scenario');
-    section.innerHTML='<div class="biomarker-heading"><div><span class="biomarker-kicker" style="color:#b91c1c"><i data-lucide="circle-alert" class="w-4 h-4"></i> Category 1 reimbursement alignment</span><h3>NCCN Cat.1 接軌情形</h3><p>本區只以 <strong>NCCN Evidence = Category 1</strong> 篩選；Preference 另列作為推薦優先性參考。Category 1 共 <strong>'+cat1.length+'</strong> 種臨床決策情境；至少部分納入 <strong>'+atLeast.length+' / '+cat1.length+'</strong>（<strong>'+((atLeast.length/cat1.length)*100).toFixed(1)+'%</strong>），其中完全給付 '+(cat1.length-gaps.length)+'、部分給付 '+partial.length+'、尚未給付 '+none.length+'。</p></div><span class="biomarker-version" style="border-color:#fecaca;background:#fff1f2;color:#b91c1c">Evidence｜Category 1</span></div><div class="cat1-method-card" role="note" aria-label="NCCN 分級方法說明"><i data-lucide="info" class="cat1-method-icon"></i><div><strong>為什麼同一藥物會有不同 NCCN 分級？</strong><p>NCCN Recommendation 是依「臨床情境」而非單一藥名判定。同一成分若用於不同分型、Biomarker、治療線位或前治療條件，可能具有不同 Evidence 與 Preference。</p><p>本儀表板的 Cat.1 接軌分析以「情境」為統計單位，不以藥物名稱直接判定 Cat.1。</p></div></div><div class="gap-summary-grid"><div class="gap-summary-card"><strong>'+(cat1.length-gaps.length)+'</strong><span>完全給付</span></div><div class="gap-summary-card"><strong>'+partial.length+'</strong><span>部分給付</span></div><div class="gap-summary-card"><strong>'+none.length+'</strong><span>尚未給付</span></div></div><div class="cat1-compact-table-wrap"><table class="cat1-compact-table clinical-data-table matrix-compatible-table" aria-label="NCCN Cat.1 接軌情形"><thead><tr><th class="w-48">藥物情境</th><th class="w-64">說明</th><th class="w-28">治療階段</th><th class="w-32">NCCN Evidence</th><th class="w-40">NCCN Preference</th><th class="w-32">分型</th><th class="w-28">期別</th><th class="w-28">線位</th><th class="w-32">Biomarker</th><th class="w-40">台灣藥證取得情形</th><th class="w-36">健保給付情形</th></tr></thead><tbody>'+allItems+'</tbody></table></div>';
+    section.innerHTML='<div class="biomarker-heading"><div><span class="biomarker-kicker" style="color:#b91c1c"><i data-lucide="circle-alert" class="w-4 h-4"></i> Category 1 reimbursement alignment</span><h3>NCCN Cat.1 接軌情形</h3><p>本區只以 <strong>NCCN Evidence = Category 1</strong> 篩選；Preference 另列作為推薦優先性參考。Category 1 共 <strong>'+cat1.length+'</strong> 種臨床決策情境；至少部分納入 <strong>'+atLeast.length+' / '+cat1.length+'</strong>（<strong>'+((atLeast.length/cat1.length)*100).toFixed(1)+'%</strong>），其中完全給付 '+(cat1.length-gaps.length)+'、部分給付 '+partial.length+'、尚未給付 '+none.length+'。</p></div><span class="biomarker-version" style="border-color:#fecaca;background:#fff1f2;color:#b91c1c">Evidence｜Category 1</span></div><div class="cat1-method-card" role="note" aria-label="NCCN 分級方法說明"><i data-lucide="info" class="cat1-method-icon"></i><div><strong>為什麼同一藥物會有不同 NCCN 分級？</strong><p>NCCN Recommendation 是依「臨床情境」而非單一藥名判定。同一成分若用於不同分型、Biomarker、治療線位或前治療條件，可能具有不同 Evidence 與 Preference。</p><p>本儀表板的 Cat.1 接軌分析以「情境」為統計單位，不以藥物名稱直接判定 Cat.1。</p></div></div><div class="gap-summary-grid"><div class="gap-summary-card"><strong>'+(cat1.length-gaps.length)+'</strong><span>完全給付</span></div><div class="gap-summary-card"><strong>'+partial.length+'</strong><span>部分給付</span></div><div class="gap-summary-card"><strong>'+none.length+'</strong><span>尚未給付</span></div></div><div class="cat1-compact-table-wrap"><table class="cat1-compact-table clinical-data-table matrix-compatible-table" aria-label="NCCN Cat.1 接軌情形"><thead><tr><th class="w-48">藥物情境</th><th class="w-28">治療階段</th><th class="w-32">NCCN Evidence</th><th class="w-40">NCCN Preference</th><th class="w-32">分型</th><th class="w-28">期別</th><th class="w-28">線位</th><th class="w-32">Biomarker</th><th class="w-32">NCCN 頁碼</th><th class="w-40">台灣藥證取得情形</th><th class="w-36">健保給付情形</th><th class="w-72">台灣健保給付規定</th></tr></thead><tbody>'+allItems+'</tbody></table></div>';
     var biomarkerMatrix=document.getElementById('biomarkerMatrixSection');
     if(biomarkerMatrix)biomarkerMatrix.after(section);else summaryLayout.after(section);
   }
@@ -7418,11 +7491,11 @@ function showClassHover(category) {
   }
 
   var html = '<span class="guideline-result-heading">'+escapeIngredientHtml(window.currentGuidelineCategory||'全部')+'｜符合 '+filtered.length+' 筆情境</span>';
-  html += '<div class="guideline-scenario-table-wrap"><table class="guideline-scenario-table clinical-data-table matrix-compatible-table" aria-label="NCCN 臨床決策情境清單"><thead><tr><th>藥物情境</th><th>說明</th><th>治療階段</th><th>NCCN Evidence</th><th>NCCN Preference</th><th>分型</th><th>期別</th><th>線位</th><th>Biomarker</th><th>台灣藥證取得情形</th><th>健保給付情形</th></tr></thead><tbody>';
+  html += '<div class="guideline-scenario-table-wrap"><table class="guideline-scenario-table clinical-data-table matrix-compatible-table" aria-label="NCCN 臨床決策情境清單"><thead><tr><th>藥物情境</th><th>治療階段</th><th>NCCN Evidence</th><th>NCCN Preference</th><th>分型</th><th>期別</th><th>線位</th><th>Biomarker</th><th>NCCN 頁碼</th><th>台灣藥證取得情形</th><th>健保給付情形</th><th>台灣健保給付規定</th></tr></thead><tbody>';
   var lastClass='';
   filtered.forEach(function(d){
     if((window.currentGuidelineCategory==='全部'||query)&&d.cls!==lastClass){
-      html += '<tr class="guideline-scenario-group-row"><td colspan="11">'+escapeIngredientHtml(d.cls||'其他')+'</td></tr>';
+      html += '<tr class="guideline-scenario-group-row"><td colspan="12">'+escapeIngredientHtml(d.cls||'其他')+'</td></tr>';
       lastClass=d.cls;
     }
     html += guidelineScenarioTableRowHtml(d);
@@ -7492,8 +7565,8 @@ function matrixDisplayBiomarkers(d){
   });
 }
 
-// V68 — Cat.1 表與「治療情境與藥物檢索」共用同一組 11 欄內容生成。
-// 欄位名稱與資料來源完全依 V66 搜尋表：藥物情境、說明、治療階段、Evidence、Preference、分型、期別、線位、Biomarker、台灣藥證取得情形、健保給付情形。
+// V68 — Cat.1 表與「治療情境與藥物檢索」共用同一組 12 欄內容生成。
+// 欄位名稱與資料來源完全依 V66 搜尋表：藥物情境、治療階段、Evidence、Preference、分型、期別、線位、Biomarker、NCCN 頁碼、台灣藥證取得情形、健保給付情形、台灣健保給付規定。
 function matrixSharedRowCellsHtml(d,options){
   options=options||{};
   var biomarkers=matrixDisplayBiomarkers(d);
@@ -7505,43 +7578,39 @@ function matrixSharedRowCellsHtml(d,options){
   var meta=scenarioMeta(d);
   var nccnSource=publicMetaText(d.nccnP);
   var clause=publicMetaText(d.nhiP);
-  var sourceBits=[];
-  if(nccnSource!=='—')sourceBits.push('NCCN v2.2026｜'+nccnSource);
-
+  var nhiCondition=matrixSupplementalDescription(d);
   var tfdaStatus=publicMetaText(d.tfdaStatus||'公開資料未查得');
   var drugName=d.n.split("—")[0].trim();
   var preferredText=matrixPreferredLabel(d);
-  // V73: Page 2「治療情境與藥物檢索」只顯示 Preferred；其他 Preference 僅在 Page 2 留白。
-  // 底層 d.pref / scenarioMeta preference 不變，其他頁面沿用完整 Preference 顯示。
-  var page2PreferredOnly=options.preferenceDisplay==='preferredOnly';
-  if(page2PreferredOnly&&nccnPreference(d)!=='Preferred')preferredText='';
+  // Page 2／72 情境沿用既有 Preferred-only 顯示設定；Cat.1 仍保留既有 Preference 顯示。
+  var preferredOnly=options.preferenceDisplay==='preferredOnly';
+  if(preferredOnly&&nccnPreference(d)!=='Preferred')preferredText='';
 
   var regimenText=(meta.regimen||'').trim();
   var showRegimen=regimenText && normalizeSearch(regimenText)!==normalizeSearch(drugName);
+  var nhiRuleHtml='';
+  if(nhiCondition!=='—')nhiRuleHtml+='<div class="matrix-nhi-rule-text">'+escapeIngredientHtml(nhiCondition)+'</div>';
+  if(clause!=='—')nhiRuleHtml+='<div class="matrix-nhi-rule-source">給付條款：'+escapeIngredientHtml(clause)+'</div>';
+  if(!nhiRuleHtml)nhiRuleHtml='<span class="text-slate-400">—</span>';
 
   return ''+
     '<td style="min-width:175px">'+
       '<span class="font-bold text-slate-900 text-[13px] block mb-1">'+drugName+'</span>'+
       (showRegimen?'<span class="regimen-core">'+regimenText+'</span>':'')+
     '</td>'+
-    '<td class="matrix-description">'+
-      '<div class="matrix-description-main">'+escapeIngredientHtml(matrixSupplementalDescription(d))+'</div>'+
-      (sourceBits.length?'<div class="matrix-source-meta">'+sourceBits.join('｜')+'</div>':'')+
-    '</td>'+
     '<td class="matrix-stage-cell"><span class="therapy-stage-badge">'+scenarioTreatmentStageDisplay(d)+'</span></td>'+
     '<td class="matrix-nccn-cell"><span class="badge '+catClass(d.cat)+'">'+d.cat+'</span></td>'+
     '<td class="matrix-nccn-cell">'+
-      (preferredText?'<span class="nccn-preference">'+preferredText+'</span>':(page2PreferredOnly?'':'<span class="text-slate-400">—</span>'))+
+      (preferredText?'<span class="nccn-preference">'+preferredText+'</span>':(preferredOnly?'':'<span class="text-slate-400">—</span>'))+
     '</td>'+
     '<td class="matrix-subtype-cell"><span class="badge '+subClass(subtypeDisplay)+'">'+subtypeDisplay+'</span></td>'+
     '<td class="matrix-stage-cell"><span class="therapy-stage-badge">'+d.stage+'</span></td>'+
     '<td><span class="therapy-line-badge">'+therapyLine(d)+'</span></td>'+
     '<td class="matrix-biomarker-cell"><div class="table-biomarker-chips" aria-label="Biomarker">'+markerChips+'</div></td>'+
+    '<td class="matrix-nccn-page-cell"><span class="matrix-nccn-page">'+escapeIngredientHtml(nccnSource)+'</span></td>'+
     '<td style="min-width:155px"><span class="matrix-reg-status '+tfdaBadgeClass(tfdaStatus)+'">'+tfdaStatus+'</span></td>'+
-    '<td style="min-width:190px">'+
-      '<span class="status-badge '+gapClass(d.gap)+'">'+matrixGapLabel(d.gap)+'</span>'+
-      (d.gap!=='完全未給付'&&clause!=='—'?'<div class="matrix-source-meta matrix-nhi-meta">健保條款：'+clause+'</div>':'')+
-    '</td>';
+    '<td class="matrix-reimbursement-cell"><span class="status-badge '+gapClass(d.gap)+'">'+matrixGapLabel(d.gap)+'</span></td>'+
+    '<td class="matrix-nhi-rule-cell">'+nhiRuleHtml+'</td>';
 }
 
 function renderTable(){
@@ -7553,7 +7622,7 @@ function renderTable(){
   data.forEach(function(d){
     if(d.cls!==lastCls){
       var hr=document.createElement("tr");hr.className="group-row";
-      hr.innerHTML='<td colspan="11">◩ 藥理機制分類：'+d.cls+'</td>';
+      hr.innerHTML='<td colspan="12">◩ 藥理機制分類：'+d.cls+'</td>';
       tbody.appendChild(hr);lastCls=d.cls;
     }
 
