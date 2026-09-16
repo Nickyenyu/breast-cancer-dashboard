@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- V81: Page 1 RWD mode removes all Taiwan-vs-US/SEER comparison UI and chart references; Taiwan TCR/RWD data retained. -->
 <!-- V78: remove specified SEER footnote; disable all ingredient-list interactions on the two drug-analysis pie cards only. -->
 <!-- V73: 基於 pre-pie V72 正常互動版；第三頁圓餅圖採隔離式 fail-safe enhancement，不改寫既有初始化。 -->
 <html lang="zh-TW">
@@ -10,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NCCN v2.2026 × 台灣健保乳癌治療儀表板｜TCR iDFS × TFDA藥證稽核版</title>
+<title>NCCN v2.2026 × 台灣健保乳癌治療儀表板｜V79・112年癌登更新版</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://unpkg.com/chart.js@4.4.7/dist/chart.umd.min.js"><\\/script>');}</script>
@@ -3485,7 +3486,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       <div class="space-y-1 mt-3 leading-relaxed">
         <div><i data-lucide="database" class="w-3.5 h-3.5 text-blue-400 inline"></i> NCCN 乳癌臨床實務指引 v2.2026（2026-02-27）</div>
         <div><i data-lucide="users" class="w-3.5 h-3.5 text-emerald-400 inline"></i> 台灣癌症登記資料庫（TCR）N=85,657</div>
-        <div><i data-lucide="book-open" class="w-3.5 h-3.5 text-violet-400 inline"></i> 衛生福利部國民健康署《中華民國109年癌症登記報告》</div>
+        <div><i data-lucide="book-open" class="w-3.5 h-3.5 text-violet-400 inline"></i> 衛生福利部國民健康署《中華民國112年癌症登記報告》</div>
       </div>
     </div>
   </div>
@@ -3559,6 +3560,41 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       </div>
     </div>
 
+    <!-- V79｜112年官方癌登概況：與既有2011–2020 RWD / TCR survival並列，不互相取代 -->
+    <section id="officialRegistry112Panel" hidden class="bg-white border border-slate-200 rounded-xl p-5 md:p-6 space-y-5 shadow-sm" aria-labelledby="officialRegistry112Title">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <div class="text-[11px] font-bold tracking-wider uppercase text-violet-600">Taiwan Cancer Registry Annual Report 2023</div>
+          <h2 id="officialRegistry112Title" class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">112年官方癌登概況｜女性乳房癌</h2>
+        </div>
+        <div class="text-[11px] text-slate-500">衛生福利部國民健康署《中華民國112年癌症登記報告》</div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <article class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div class="text-[11px] text-slate-500 font-semibold">女性新發個案</div>
+          <div class="mt-1 text-2xl font-extrabold font-mono text-slate-900">17,779<span class="text-sm ml-1 font-bold">人</span></div>
+          <div class="mt-1 text-[10px] text-slate-500">112年女性乳房惡性腫瘤</div>
+        </article>
+        <article class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div class="text-[11px] text-slate-500 font-semibold">女性死亡人數</div>
+          <div class="mt-1 text-2xl font-extrabold font-mono text-slate-900">2,972<span class="text-sm ml-1 font-bold">人</span></div>
+          <div class="mt-1 text-[10px] text-slate-500">112年女性乳房惡性腫瘤</div>
+        </article>
+        <article class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div class="text-[11px] text-slate-500 font-semibold">年齡標準化發生率</div>
+          <div class="mt-1 text-2xl font-extrabold font-mono text-slate-900">91.20<span class="text-sm ml-1 font-bold">/10萬</span></div>
+          <div class="mt-1 text-[10px] text-slate-500">2000年世界標準人口</div>
+        </article>
+        <article class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div class="text-[11px] text-slate-500 font-semibold">年齡標準化死亡率</div>
+          <div class="mt-1 text-2xl font-extrabold font-mono text-slate-900">13.16<span class="text-sm ml-1 font-bold">/10萬</span></div>
+          <div class="mt-1 text-[10px] text-slate-500">2000年世界標準人口</div>
+        </article>
+      </div>
+
+    </section>
+
     <details id="outcomeDefinitions" class="definition-disclosure">
       <summary>ⓘ 疾病預後與療效指標名詞解釋</summary>
       <div class="definition-disclosure-body space-y-3">
@@ -3584,11 +3620,11 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
           <span>治療預後指標</span>
         </div>
         <details class="definition-disclosure">
-          <summary>ⓘ 定義與參照差值解析</summary>
+          <summary>ⓘ 相對存活率定義</summary>
           <div class="definition-disclosure-body space-y-3">
-            <div><strong>外部參照資料：</strong>台灣癌症登記資料庫（TCR）與美國 SEER 僅作描述性並列。兩者可能使用不同分期分類、人口結構與資料期間，不視為直接療效比較。</div>
-            <div><strong>參照差值：</strong>兩個資料來源之數值差異可作為後續分析起點，但不能單獨歸因於篩檢、給付或特定藥物；仍須校正年齡、期別、亞型、診斷年代及治療環境。</div>
-            <div><strong>pp（Percentage Point，百分點）：</strong>用以表達兩個百分比直接相減的絕對差值，例如 91.9%－88.9%＝3.0 pp；它不同於表示相對變化的百分比。</div>
+            <div><strong>台灣資料：</strong>本區使用台灣癌症登記中心（TCR）公開之乳癌相對存活率資料。</div>
+            <div><strong>相對存活率：</strong>將癌症病人的實際存活與相近一般人口的預期存活相比，用於描述癌症族群整體存活表現。</div>
+            <div><strong>資料期間：</strong>2019–2023 年新發乳癌個案，追蹤至 2024 年；五年相對存活率為 88.9%。</div>
           </div>
         </details>
         <div class="gauge-container">
@@ -3598,7 +3634,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
             <div class="text-[11px] text-slate-400 mt-1" id="gaugeSub">台灣整體乳癌 (Stage 0-IV)</div>
           </div>
         </div>
-        <div class="text-xs text-slate-300 bg-slate-900/50 p-3 rounded-lg space-y-1.5 border border-slate-800">
+        <div id="gaugeComparePanel" class="hidden text-xs text-slate-300 bg-slate-900/50 p-3 rounded-lg space-y-1.5 border border-slate-800">
           <div class="flex justify-between">
             <span class="text-slate-400" id="compareTitle">美國｜第五年相對存活率:</span>
             <span class="font-bold font-mono text-white" id="seerCompareVal">91.9%</span>
@@ -3608,14 +3644,6 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
             <span class="font-bold font-mono text-red-400" id="seerDiffVal">-3.0 pp</span>
           </div>
         </div>
-        <div class="data-period-row" aria-label="台美相對存活資料來源">
-          <div class="data-period-pill audience-source-card"><strong>台灣乳癌病人｜1–5 年相對存活趨勢</strong><span>TCR｜2019–2023 新發個案，追蹤至 2024</span></div>
-          <div class="data-period-pill audience-source-card"><strong>美國乳癌病人｜5 年相對存活率</strong><span>SEER 21（Excluding IL）｜2016–2022：91.9%</span></div>
-        </div>
-        <details class="comparison-context-note">
-          <summary>ⓘ 台美資料如何比較？</summary>
-          <div>台灣 TCR 公開資料提供完整 1–5 年相對存活率，因此以折線呈現；SEER Cancer Stat Facts 的近期官方資料提供 2016–2022 五年相對存活率 91.9%，因此以水平虛線作為五年存活率參考基準，而不是美國第 1–5 年存活趨勢。兩者資料期間、登錄人口與統計架構不同，不作同期或直接療效比較。</div>
-        </details>
       </div>
 
       <!-- KPI Card 2: Trend Chart｜V30: RWD 模式不顯示；其他模式仍使用同一圖表容器 -->
@@ -3636,7 +3664,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
 
       <!-- KPI Card 3: Distribution Chart -->
       <div class="gbci-card p-5 flex flex-col justify-between space-y-3">
-        <div class="text-xs font-bold text-slate-400 tracking-wide uppercase border-b border-slate-800 pb-2" id="radarChartTitle">確診期別分佈對比 (台灣 vs 美國)</div>
+        <div class="text-xs font-bold text-slate-400 tracking-wide uppercase border-b border-slate-800 pb-2" id="radarChartTitle">台灣 RWD 確診期別分布</div>
         <div id="radarChartWrap" class="relative major-chart-wrap w-full"><canvas id="stageRadarChart"></canvas></div>
         <div id="idfsBarWrap" class="hidden relative major-chart-wrap w-full"><canvas id="idfsBarChart"></canvas></div>
         <div id="trialDesignTable" class="hidden major-chart-wrap overflow-y-auto rounded-lg border border-slate-800 bg-slate-950/40 p-2">
@@ -3653,8 +3681,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
         </div>
         <div class="text-center text-[10px] text-slate-400">
           <div class="flex flex-wrap justify-center gap-3" id="radarLegend">
-            <span class="text-purple-300 font-semibold">■ TCR (AJCC)</span>
-            <span class="text-slate-400">■ SEER Summary Stage</span>
+            <span class="text-purple-300 font-semibold">■ 台灣 RWD（AJCC cStage）</span>
           </div>
         </div>
       </div>
@@ -3690,7 +3717,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       <div class="prognosis-analysis-head">
         <div>
           <div class="prognosis-analysis-kicker">RWD 深度分析</div>
-          <h3 id="prognosisAnalysisTitle" class="prognosis-analysis-title">疾病分期</h3>
+          <h3 id="prognosisAnalysisTitle" class="prognosis-analysis-title">確診期別分布｜台灣 RWD</h3>
           
         </div>
         <span class="context-badge tcr">RWD｜2011–2020 臨床登錄資料</span>
@@ -3705,10 +3732,10 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
         <div class="prognosis-grid">
           <article class="bg-white border border-slate-200 rounded-xl p-5 space-y-4">
             <div class="text-xs font-bold text-blue-600 border-b border-slate-200 pb-2 flex items-center justify-between gap-3">
-              <span>📊 臨床分期分佈：台灣 AJCC cStage × SEER Summary Stage 並列參照</span>
+              <span>📊 臨床分期分佈：台灣 RWD（AJCC cStage）</span>
               <span class="text-[10px] text-slate-500">小數點取至第2位</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4">
               <table class="dark-tbl">
                 <thead><tr><th>台灣 RWD（AJCC cStage）</th><th>台灣%</th></tr></thead>
                 <tbody>
@@ -3717,18 +3744,9 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
                   <tr><td>Stage IV</td><td class="font-mono">5.00%</td></tr>
                 </tbody>
               </table>
-              <table class="dark-tbl">
-                <thead><tr><th>美國 SEER（Summary Stage）</th><th>美國%</th></tr></thead>
-                <tbody>
-                  <tr><td>Localized</td><td class="font-mono">64.00%</td></tr>
-                  <tr><td>Regional</td><td class="font-mono">28.00%</td></tr>
-                  <tr><td>Distant</td><td class="font-mono">6.00%</td></tr>
-                </tbody>
-              </table>
             </div>
             <ul class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed list-disc pl-4">
-              <li>此數值描述本資料集的確診期別組成。</li>
-              <li>AJCC cStage 與 SEER Summary Stage 並非一對一分類，因此本區僅做並列參照，不以兩者差值推論政策成效。</li>
+              <li>此數值描述本資料集的台灣乳癌確診期別組成。</li>
             </ul>
           </article>
 
@@ -3753,7 +3771,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
             </ul>
           </article>
         </div>
-        <div class="prognosis-source-note"><strong>資料與定義：</strong>本區使用本專案 2011–2020 臨床登錄資料進行 cStage／pStage 分層。整體 TCR 公開 1–5 年相對存活率採另一套 2019–2023 新發個案統計（追蹤至 2024），兩者不得混用。SEER Summary Stage 僅作外部背景參照。</div>
+        <div class="prognosis-source-note"><strong>資料與定義：</strong>本區使用本專案 2011–2020 臨床登錄資料進行 cStage／pStage 分層。整體 TCR 公開 1–5 年相對存活率採另一套 2019–2023 新發個案統計（追蹤至 2024），兩者不得混用。</div>
       </section>
 
       <section id="prognosis-panel-subtype" class="prognosis-panel" role="tabpanel" aria-labelledby="prognosis-tab-subtype" data-prognosis-panel="subtype" hidden>
@@ -4684,7 +4702,7 @@ if(new URLSearchParams(location.search).get('compact')==='1'){
       </div>
       <div class="space-y-2">
         <p>4. 政策時間滯後論述引用自 PwC Taiwan 與 TSRAP 發布之新藥准入政策白皮書。</p>
-        <p>5. TCR／RWD 資料分流：整體乳癌 1–5 年相對存活率（97.5%、95.1%、92.7%、90.6%、88.9%）採 <strong>台灣癌症登記中心（TCR）108–112 年（2019–2023）新發個案存活率，追蹤至 113 年（2024）</strong>；本頁其他分層真實世界分析所標示之 <strong>N=85,657</strong> 為 2011–2020 臨床登錄資料，並非上述公開相對存活統計之樣本數。美國整體五年外部參照採 <strong>SEER 21（Excluding IL）2016–2022，91.9%</strong>。不同資料來源不作直接療效比較；早期 CDK4/6 數據（iDFS）另來自 monarchE 與 NATALEE 試驗。</p>
+        <p>5. TCR／RWD 資料分流：整體乳癌 1–5 年相對存活率（97.5%、95.1%、92.7%、90.6%、88.9%）採 <strong>台灣癌症登記中心（TCR）108–112 年（2019–2023）新發個案存活率，追蹤至 113 年（2024）</strong>；本頁其他分層真實世界分析所標示之 <strong>N=85,657</strong> 為 2011–2020 臨床登錄資料，並非上述公開相對存活統計之樣本數。早期 CDK4/6 數據（iDFS）另來自 monarchE 與 NATALEE 試驗。</p>
       </div>
     </div>
     <div class="border-t border-slate-800 pt-4 text-center text-slate-500 font-mono text-[10px]">
@@ -7881,10 +7899,9 @@ function getRadarChartData(){
     };
   }
   return {
-    labels:["早期／Localized","局部侵犯／Regional","遠端轉移／Distant"],
+    labels:["Stage 0+I","Stage II+III","Stage IV"],
     datasets:[
-      {label:"台灣 TCR（AJCC 分組）",data:[33.66,61.34,5.0],borderColor:"#c084fc",backgroundColor:"rgba(192,132,252,0.2)",borderWidth:2},
-      {label:"美國 SEER（Summary Stage）",data:[64.0,28.0,6.0],borderColor:"#94a3b8",borderDash:[3,3],backgroundColor:"rgba(148,163,184,0.05)",borderWidth:1}
+      {label:"台灣 RWD（AJCC cStage）",data:[33.66,61.34,5.0],borderColor:"#c084fc",backgroundColor:"rgba(192,132,252,0.2)",borderWidth:2}
     ]
   };
 }
@@ -7895,13 +7912,13 @@ function getRadarScaleMax(){
 function updateModeUI(){
   var modeTexts={
     "RWD":{
-      desc:"【官方相對存活資料】台灣 TCR 公開資料提供 2019–2023 新發乳癌個案（追蹤至 2024）的 1–5 年相對存活率；美國 SEER Cancer Stat Facts 提供 SEER 21（Excluding IL）2016–2022 的五年相對存活率 91.9%。圖中以水平虛線將 91.9% 作為五年存活率參考基準；虛線不是美國第 1–5 年存活趨勢，亦不自行推估第 1–4 年數值。",
+      desc:"【台灣官方相對存活資料】台灣 TCR 公開資料提供 2019–2023 新發乳癌個案（追蹤至 2024）的 1–5 年相對存活率；本模式僅呈現台灣資料，不進行跨國比較。",
       title:"",
-      radarTitle:"台美期別分布雷達圖",
-      gaugeVal:"88.9%",gaugeSub:"台灣 TCR｜五年相對存活率",seerCompare:"91.9%",seerDiff:"-3.0 pp",
-      footL:"台灣｜TCR 2019–2023 新發個案，追蹤至 2024",footR:"美國｜SEER 21 2016–2022｜5Y 91.9%",
-      radarLegend:'<span class="text-purple-300 font-semibold">■ TCR（AJCC 分組）</span><span class="text-slate-400">■ SEER（Summary Stage）</span>',
-      compareTitle:"美國｜第五年相對存活率:",diffTitle:"第五年描述性差值:"
+      radarTitle:"台灣 RWD 確診期別分布",
+      gaugeVal:"88.9%",gaugeSub:"台灣 TCR｜五年相對存活率",seerCompare:"",seerDiff:"",
+      footL:"台灣｜TCR 2019–2023 新發個案，追蹤至 2024",footR:"",
+      radarLegend:'<span class="text-purple-300 font-semibold">■ 台灣 RWD（AJCC cStage）</span>',
+      compareTitle:"",diffTitle:""
     },
     "RECUR_SUBTYPE":{
       desc:"",
@@ -7953,6 +7970,8 @@ function updateModeUI(){
   safeSetText("gaugeVal",t.gaugeVal);safeSetText("gaugeSub",t.gaugeSub);safeSetText("seerCompareVal",t.seerCompare);safeSetText("seerDiffVal",t.seerDiff);
   safeSetText("lineChartFooterLeft",t.footL);safeSetText("lineChartFooterRight",t.footR);safeSetHtml("radarLegend",t.radarLegend);
   safeSetText("compareTitle",t.compareTitle);safeSetText("diffTitle",t.diffTitle);
+  var gaugeComparePanel=document.getElementById("gaugeComparePanel");
+  if(gaugeComparePanel)gaugeComparePanel.classList.toggle("hidden",activeMode==="RWD");
 
   // V33: 主模式與下方 RWD 深度分析一對一切割，避免跨模式內容殘留。
   var technicalTables=document.getElementById("technicalTables");
@@ -8036,38 +8055,7 @@ var rfsVerticalYAxisLabelPlugin={
   }
 };
 
-// SEER 91.9% is drawn as a benchmark/reference line, not as a 1–5 year survival dataset.
-var seerFiveYearReferenceLinePlugin={
-  id:"seerFiveYearReferenceLine",
-  afterDatasetsDraw:function(chart){
-    if(activeMode!=="RWD")return;
-    var yScale=chart.scales&&chart.scales.y,area=chart.chartArea;
-    if(!yScale||!area)return;
-    var y=yScale.getPixelForValue(91.9);
-    var ctx=chart.ctx;
-    ctx.save();
-    ctx.strokeStyle="#64748b";
-    ctx.lineWidth=1.6;
-    ctx.setLineDash([7,5]);
-    ctx.beginPath();
-    ctx.moveTo(area.left,y);
-    ctx.lineTo(area.right,y);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    var label="美國 SEER｜5年相對存活率 91.9%";
-    ctx.font="600 11px 'Noto Sans TC', sans-serif";
-    ctx.textBaseline="middle";
-    var padX=6,labelH=20,textW=ctx.measureText(label).width;
-    var labelX=Math.max(area.left+4,area.right-textW-padX*2-4);
-    var labelY=Math.max(area.top+labelH/2+2,Math.min(area.bottom-labelH/2-2,y-13));
-    ctx.fillStyle="rgba(248,250,252,0.94)";
-    ctx.fillRect(labelX,labelY-labelH/2,textW+padX*2,labelH);
-    ctx.fillStyle="#475569";
-    ctx.fillText(label,labelX+padX,labelY);
-    ctx.restore();
-  }
-};
+// V80: RWD mode intentionally contains no external-country reference line.
 // Function to handle direct mode click (Change 5)
 function setDashboardMode(mode) {
   if(mode === "TRIAL") return;
@@ -8123,7 +8111,7 @@ function initCharts(){
   lineChartInstance=new Chart(document.getElementById("survivalLineChart"),{
     type:"line",
     data:getLineChartData(),
-    plugins:[seerFiveYearReferenceLinePlugin,rfsVerticalYAxisLabelPlugin],
+    plugins:[rfsVerticalYAxisLabelPlugin],
     options:{
       responsive:true,
       maintainAspectRatio:false,
@@ -8152,17 +8140,10 @@ function initCharts(){
             boxWidth:10,
             font:{size:10},
             generateLabels:function(chart){
-              var base=Chart.defaults.plugins.legend.labels.generateLabels(chart);
-              if(activeMode==="RWD")base.push({
-                text:"美國 SEER｜5 年相對存活率參考線 91.9%",
-                strokeStyle:"#64748b",fillStyle:"rgba(0,0,0,0)",lineWidth:1.6,lineDash:[7,5],
-                hidden:false,datasetIndex:-1
-              });
-              return base;
+              return Chart.defaults.plugins.legend.labels.generateLabels(chart);
             }
           },
           onClick:function(e,item,legend){
-            if(item&&item.datasetIndex===-1)return;
             Chart.defaults.plugins.legend.onClick.call(this,e,item,legend);
           }
         },
