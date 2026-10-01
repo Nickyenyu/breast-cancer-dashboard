@@ -7110,6 +7110,64 @@ function normalizeSearch(value){
   return String(value||"").normalize("NFKC").toLowerCase().replace(/[\s\\–—_／/＋+()（）,.，:：;；-]/g,"");
 }
 
+// Search fix 2026-10-01:
+// 1) 藥物別名以「主要藥物／regimen 欄位」比對，避免只在情境說明提到某藥也被誤列。
+// 2) T-DXd / Trastuzumab deruxtecan / Enhertu / 優赫得 / DS-8201 視為同一搜尋概念。
+// 3) 一般關鍵字仍可搜尋情境 ID、藥名、分型、Biomarker、線別、regimen、NCCN 與健保欄位。
+// 4) 搜尋 0 筆時維持 0 筆，不回退顯示全部 72 筆。
+var MATRIX_DRUG_ALIAS_GROUPS=[
+  ["tdxd","trastuzumabderuxtecan","famtrastuzumabderuxtecannxki","enhertu","優赫得","ds8201"],
+  ["tdm1","adotrastuzumabemtansine","trastuzumabemtansine","kadcyla","賀癌寧"]
+];
+
+function matrixDrugAliasGroup(rawQuery){
+  var q=normalizeSearch(rawQuery);
+  if(!q)return null;
+  for(var i=0;i<MATRIX_DRUG_ALIAS_GROUPS.length;i++){
+    if(MATRIX_DRUG_ALIAS_GROUPS[i].indexOf(q)!==-1)return MATRIX_DRUG_ALIAS_GROUPS[i];
+  }
+  return null;
+}
+
+function matrixScenarioPrimaryDrugText(d){
+  var primaryName=String((d&&d.n)||"").split("—")[0].trim();
+  var meta=scenarioMeta(d||{});
+  return [
+    primaryName,
+    d&&d.tw,
+    d&&d.en,
+    meta&&meta.regimen,
+    d&&d.regimen
+  ].filter(Boolean).join(" ");
+}
+
+function matrixScenarioSearchMatches(d,rawQuery){
+  var q=normalizeSearch(rawQuery);
+  if(!q)return true;
+
+  var meta=scenarioMeta(d);
+  var biomarkers=itemBiomarkers(d);
+  var aliases=matrixDrugAliasGroup(rawQuery);
+
+  // 已辨識的藥名／別名只搜尋主要治療欄位。
+  // 例如 Sacituzumab 情境名稱中的「不適合 T-DXd」不應因搜尋 T-DXd 而被列入。
+  if(aliases){
+    var drugHaystack=normalizeSearch(matrixScenarioPrimaryDrugText(d));
+    return aliases.some(function(alias){return drugHaystack.includes(alias);});
+  }
+
+  var inavolisibAliases=d.en==="Inavolisib 1L"?" Itovebi 癌妥飛 艾托非 癌妥飛三聯 ":"";
+  var haystack=normalizeSearch([
+    d.sid,d.n,d.tw,d.en,d.ctx,d.sub,d.stage,d.cls,d.biomarker,d.setting,d.line,
+    d.eligibility,d.regimen,d.nhiCond,d.nhiP,d.gapNote,d.tfdaStatus,d.tfdaPermit,
+    d.tfdaLabel,meta.regimen,therapyLine(d),d.cat,
+    nccnPreferenceLabel(nccnPreference(d)),inavolisibAliases,
+    biomarkers.map(function(rule){return rule.label;}).join(" ")
+  ].filter(Boolean).join(" "));
+
+  return haystack.includes(q);
+}
+
 
 // V72: 「乳癌分型」為前台分析維度，不直接使用 D.sub 的複合字串做模糊 contains 判斷。
 // 本專案前台分型統一為 HR+／HER2+／TNBC／全亞型；跨分型情境保留為「HR+／TNBC」，不自動塞入單一分型篩選。
@@ -7402,7 +7460,10 @@ function filterData(){
   var preferenceF=(document.getElementById("fPreference")||{}).value||"";
   var biomarkerF=(document.getElementById("fBiomarker")||{}).value||"";
   var biomarkerOnly=!!((document.getElementById("fBiomarkerOnly")||{}).checked);
-  var srch=normalizeSearch(document.getElementById("fSearch").value||"");
+  var searchEl=document.getElementById("fSearch");
+  var rawSearch=searchEl?searchEl.value:"";
+  var srch=normalizeSearch(rawSearch);
+
   var filtered=D.filter(function(d){
     var biomarkers=itemBiomarkers(d);
     if(gF&&d.gap!==gF)return false;
@@ -7414,14 +7475,10 @@ function filterData(){
     if(clsF&&d.cls!==clsF)return false;
     if(biomarkerF&&!biomarkers.some(function(rule){return rule.key===biomarkerF;}))return false;
     if(biomarkerOnly&&!biomarkers.length)return false;
-    if(srch){
-      var meta=scenarioMeta(d);
-      var aliases=d.en==="Inavolisib 1L"?" Itovebi 癌妥飛 艾托非 癌妥飛三聯 ":"";
-      var s=normalizeSearch((d.sid||"")+d.n+d.tw+d.en+d.ctx+(d.nhiCond||"")+(d.nhiP||"")+(d.gapNote||"")+(d.tfdaStatus||"")+(d.tfdaPermit||"")+(d.tfdaLabel||"")+(meta.regimen||"")+therapyLine(d)+d.cat+nccnPreferenceLabel(nccnPreference(d))+aliases+biomarkers.map(function(rule){return rule.label;}).join(' '));
-      if(!s.includes(srch))return false;
-    }
+    if(srch&&!matrixScenarioSearchMatches(d,rawSearch))return false;
     return true;
   });
+
   var isInitialAll=!gF&&!tfdaF&&!catF&&!subF&&!fStage&&!clsF&&!preferenceF&&!biomarkerF&&!biomarkerOnly&&!srch;
   if(isInitialAll){
     filtered=filtered.filter(function(d){return d.cls==="PI3K/AKT/mTOR";}).concat(
@@ -7769,27 +7826,41 @@ function renderTable(){
   var tbody=document.getElementById("tBody");
   if(!tbody)return;
   tbody.innerHTML="";
-  var lastCls="";
-  data.forEach(function(d){
-    if(d.cls!==lastCls){
-      var hr=document.createElement("tr");hr.className="group-row";
-      hr.innerHTML='<td colspan="12">◩ 藥理機制分類：'+d.cls+'</td>';
-      tbody.appendChild(hr);lastCls=d.cls;
-    }
 
-    var tr=document.createElement("tr");
-    tr.innerHTML=matrixSharedRowCellsHtml(d,{preferenceDisplay:'preferredOnly'});
-    tbody.appendChild(tr);
-  });
+  if(data.length===0){
+    var emptyRow=document.createElement("tr");
+    emptyRow.innerHTML='<td colspan="12" style="padding:28px 18px;text-align:center;color:#64748b;font-weight:700">找不到符合目前條件的臨床治療情境。</td>';
+    tbody.appendChild(emptyRow);
+  }else{
+    var lastCls="";
+    data.forEach(function(d){
+      if(d.cls!==lastCls){
+        var hr=document.createElement("tr");hr.className="group-row";
+        hr.innerHTML='<td colspan="12">◩ 藥理機制分類：'+d.cls+'</td>';
+        tbody.appendChild(hr);lastCls=d.cls;
+      }
 
-  safeSetText("cntNote","當前篩選顯示：共 "+data.length+" 項臨床治療情境（總計 "+D.length+" 筆）");
+      var tr=document.createElement("tr");
+      tr.innerHTML=matrixSharedRowCellsHtml(d,{preferenceDisplay:'preferredOnly'});
+      tbody.appendChild(tr);
+    });
+  }
+
+  var searchEl=document.getElementById("fSearch");
+  var rawSearch=searchEl?searchEl.value.trim():"";
+  if(rawSearch){
+    safeSetText("cntNote",'搜尋結果：「'+rawSearch+'」｜共 '+data.length+' 項臨床治療情境（全資料庫 '+D.length+' 筆）');
+  }else{
+    safeSetText("cntNote","當前篩選顯示：共 "+data.length+" 項臨床治療情境（總計 "+D.length+" 筆）");
+  }
+
   var active=[];
   ["fGap","fTfda","fCat","fPreference","fSub","fStage","fClass","fBiomarker"].forEach(function(id){
     var el=document.getElementById(id);
     if(el&&el.value)active.push(el.options[el.selectedIndex].text);
   });
   if((document.getElementById("fBiomarkerOnly")||{}).checked)active.push("只顯示 Biomarker 情境");
-  if((document.getElementById("fSearch")||{}).value)active.push('關鍵字「'+document.getElementById("fSearch").value+'」');
+  if(rawSearch)active.push('關鍵字「'+rawSearch+'」');
   safeSetText("activeFilterNote",active.length?"已套用："+active.join("・"):"未套用篩選條件");
   if(window.lucide)lucide.createIcons();
 }
